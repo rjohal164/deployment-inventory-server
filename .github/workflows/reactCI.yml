@@ -1,0 +1,43 @@
+name: Inventory Frontend CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: unbuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+        # Setup Node
+      - name: Setup Nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+          cache: "npm"
+
+        #Install Dependencies
+      - name: Install Dependencies
+        run: npm CI
+
+        #Build Project
+      - name: Build Project
+        run: npm run build
+
+        #Deploy to render
+      - name: Deploy to render
+        env:
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        run: |
+          echo "Triggering deploy to Render..."
+          curl -X POST "https://api.render.com/deploy/srv-${RENDER_SERVICE_ID}" \
+          -H "Authorization: Bearer ${RENDER_API_KEY}" \
+          -H "Accept: application/json"
