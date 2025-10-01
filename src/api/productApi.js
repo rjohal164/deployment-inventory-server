@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from "axios";
 
 // import.meta.env.VITE_API_URL;
-const API_URL = 'http://localhost:3005/api/products';
+const API_URL = "import.meta.env.VITE_API_URL";
 
 // Get all products
 export const getProducts = async () => {
@@ -9,7 +9,7 @@ export const getProducts = async () => {
     const response = await axios.get(API_URL);
     return response.data;
   } catch (error) {
-    console.error('Error fetching products:', error);
+    console.error("Error fetching products:", error);
     throw error;
   }
 };
@@ -31,7 +31,7 @@ export const createProduct = async (productData) => {
     const response = await axios.post(API_URL, productData);
     return response.data;
   } catch (error) {
-    console.error('Error creating product:', error);
+    console.error("Error creating product:", error);
     throw error;
   }
 };
