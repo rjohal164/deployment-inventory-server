@@ -25,7 +25,7 @@ jobs:
 
         #Install Dependencies
       - name: Install Dependencies
-        run: npm CI
+        run: npm ci
 
         #Build Project
       - name: Build Project
